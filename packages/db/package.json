@@ -1,0 +1,39 @@
+{
+  "name": "@helium/db",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules",
+    "lint": "eslint .",
+    "fmt": "prettier --check . --ignore-path ../../.gitignore",
+    "type": "tsc --noEmit",
+    "push": "drizzle-kit push:sqlite",
+    "studio": "drizzle-kit studio"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.4.0-pre.5",
+    "drizzle-orm": "^0.29.1"
+  },
+  "devDependencies": {
+    "@helium/eslint-config": "workspace:^1.0.0",
+    "@helium/prettier-config": "workspace:^1.0.0",
+    "@helium/tsconfig": "workspace:^1.0.0",
+    "dotenv-cli": "^7.3.0",
+    "drizzle-kit": "^0.20.7",
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.1",
+    "typescript": "^5.3.3"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@helium/eslint-config/base"
+    ]
+  },
+  "prettier": "@helium/prettier-config"
+}

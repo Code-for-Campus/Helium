@@ -1,0 +1,30 @@
+{
+  "name": "@helium/{{ name }}",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules",
+    "lint": "eslint .",
+    "fmt": "prettier --check . --ignore-path ../../.gitignore",
+    "type": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@helium/eslint-config": "workspace:^0.2.0",
+    "@helium/prettier-config": "workspace:^0.1.0",
+    "@helium/tsconfig": "workspace:^0.1.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.1",
+    "typescript": "^5.3.3"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@helium/eslint-config/base"
+    ]
+  },
+  "prettier": "@helium/prettier-config"
+}
