@@ -15,7 +15,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default () => {
   const [loaded, error] = useFonts({
-    Montserrat: require('@/src/assets/fonts/Montserrat.ttf'),
+    Montserrat: require('@/assets/fonts/Montserrat.ttf'),
     ...FontAwesome.font,
   });
 
