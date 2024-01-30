@@ -1,21 +1,19 @@
-import { useEffect } from 'react';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
+import { useEffect } from "react";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 
-import {SafeAreaProvider} from "react-native-safe-area-context";
-import {Stack} from "expo-router";
-import {StatusBar} from "expo-status-bar";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 
-export {
-  ErrorBoundary,
-} from 'expo-router';
+export { ErrorBoundary } from "expo-router";
 
 SplashScreen.preventAutoHideAsync();
 
 export default () => {
   const [loaded, error] = useFonts({
-    Montserrat: require('@/assets/fonts/Montserrat.ttf'),
+    Montserrat: require("@/assets/fonts/Montserrat.ttf"),
     ...FontAwesome.font,
   });
 
@@ -34,11 +32,13 @@ export default () => {
   }
 
   return (
-        <SafeAreaProvider>
-            <StatusBar style='auto'/>
-            <Stack screenOptions={{
-              headerShown: false
-            }}/>
-        </SafeAreaProvider>
+    <SafeAreaProvider>
+      <StatusBar style="auto" />
+      <Stack
+        screenOptions={{
+          headerShown: false,
+        }}
+      />
+    </SafeAreaProvider>
   );
-}
+};
