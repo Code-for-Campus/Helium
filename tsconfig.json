@@ -14,20 +14,9 @@
     "jsx": "react-native",
     "strict": true,
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-    }
+      "@/*": ["./src/*"],
+    },
   },
-  "include": [
-    "src",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules",
-    ".expo",
-    "dist",
-    "web-build",
-  ]
+  "include": ["src", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", ".expo", "dist", "web-build"],
 }
