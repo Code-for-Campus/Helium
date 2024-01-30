@@ -1,7 +1,7 @@
+import { useEffect } from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
 
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import {Stack} from "expo-router";
