@@ -17,6 +17,5 @@
       "@/*": ["./src/*"],
     },
   },
-  "include": ["src", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", ".expo", "dist", "web-build"],
+  "include": ["libs.d.ts", "./src/**/*.ts", "./src/**/*.tsx"],
 }

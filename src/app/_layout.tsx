@@ -7,6 +7,8 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 
+import "@/styles.css";
+
 export { ErrorBoundary } from "expo-router";
 
 SplashScreen.preventAutoHideAsync();

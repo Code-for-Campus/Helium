@@ -11,6 +11,14 @@
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended"
   ],
+  "ignorePatterns": [
+    "bebel.config.js",
+    "metro.config.js",
+    "tailwind.config.js",
+    "node_modules",
+    "dist",
+    ".expo"
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
