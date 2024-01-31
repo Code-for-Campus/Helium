@@ -1,46 +1,49 @@
-import { useEffect } from "react";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
+import { useEffect } from 'react'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
+import { useFonts } from 'expo-font'
+import { Stack } from 'expo-router'
+import * as SplashScreen from 'expo-splash-screen'
+import { StatusBar } from 'expo-status-bar'
 
-import "@/styles.css";
+import AuthProvider from '@/providers/AuthProvider'
+import '@/styles.css'
+import FontAwesome from '@expo/vector-icons/FontAwesome'
 
-export { ErrorBoundary } from "expo-router";
+export { ErrorBoundary } from 'expo-router'
 
-SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync()
 
 export default () => {
   const [loaded, error] = useFonts({
-    Montserrat: require("@/assets/fonts/Montserrat.ttf"),
+    Montserrat: require('@/assets/fonts/Montserrat.ttf'),
     ...FontAwesome.font,
-  });
+  })
 
   useEffect(() => {
-    if (error) throw error;
-  }, [error]);
+    if (error) throw error
+  }, [error])
 
   useEffect(() => {
     if (loaded) {
-      SplashScreen.hideAsync();
+      SplashScreen.hideAsync()
     }
-  }, [loaded]);
+  }, [loaded])
 
   if (!loaded) {
-    return null;
+    return null
   }
 
   return (
-    <SafeAreaProvider>
-      <StatusBar style="auto" />
-      <Stack
-        screenOptions={{
-          headerShown: false,
-        }}
-      />
-    </SafeAreaProvider>
-  );
-};
+    <AuthProvider>
+      <SafeAreaProvider>
+        <StatusBar style='auto' />
+        <Stack
+          screenOptions={{
+            headerShown: false,
+          }}
+        />
+      </SafeAreaProvider>
+    </AuthProvider>
+  )
+}
