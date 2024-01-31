@@ -14,7 +14,7 @@ import { getItemAsync, setItemAsync } from 'expo-secure-store'
 import { maybeCompleteAuthSession } from 'expo-web-browser'
 
 import authConsts from '@/constants/auth'
-import AuthContext, { defaultState } from '@/contexts/AuthContext'
+import AuthContext, { User, defaultState } from '@/contexts/AuthContext'
 
 maybeCompleteAuthSession()
 
@@ -40,7 +40,10 @@ export default ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(
     defaultState.isAuthenticated,
   )
+
   const [expiresIn, setExpiresIn] = useState(defaultState.expiresIn)
+
+  const [user, setUser] = useState<User>()
 
   const logoutAsync = async () => {
     await saveAuthData('', Number(null), Number(null), '')
@@ -87,9 +90,10 @@ export default ({ children }: { children: ReactNode }) => {
   }, [request, response])
 
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       try {
-        const [token, expiresIn, issuedAt, refreshToken] = await getAuthData()
+        const [token, expiresIn, issuedAt, refreshToken, user] =
+          await getAuthData()
 
         if (token && expiresIn && issuedAt) {
           const now = new Date().getTime() / 1000
@@ -100,9 +104,6 @@ export default ({ children }: { children: ReactNode }) => {
 
           if (now < Number(issuedAt) + Number(expiresIn)) {
             if (now > Number(issuedAt) + Number(expiresIn) - threshold) {
-              console.info('Refreshing ACCESS TOKEN:', token)
-              console.info('with refresh token:', refreshToken)
-
               const tokenResponse: TokenResponse = await refreshAsync(
                 {
                   clientId: authConsts.azure.clientId,
@@ -112,24 +113,13 @@ export default ({ children }: { children: ReactNode }) => {
               )
 
               await saveTokenData(tokenResponse)
-            } else {
-              console.info(
-                'Access Token valid for ',
-                expires / 60,
-                'minute(s).',
-              )
             }
 
             setIsAuthenticated(true)
+            setUser(user)
           } else {
-            console.info('Access Token EXPIRED')
-
             setIsAuthenticated(false)
           }
-        } else {
-          console.info(
-            'Seems like you are not logged in. No values saved for access token.',
-          )
         }
       } catch (error) {
         console.warn(error)
@@ -144,6 +134,7 @@ export default ({ children }: { children: ReactNode }) => {
         expiresIn,
         request,
         response,
+        user,
         loginAsync,
         logoutAsync,
       }}
@@ -168,39 +159,63 @@ const saveTokenData = async (tokenResponse: TokenResponse) => {
   }
 }
 
+const getUserData = async (accessToken: string) => {
+  const user: User = {
+    email: '',
+    firstName: '',
+  }
+
+  await fetch('https://graph.microsoft.com/v1.0/me/', {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  })
+    .then(async (response) => response.json())
+    .then((response) => {
+      user.email = response?.mail ?? ''
+      user.firstName = response?.givenName ?? ''
+    })
+    .catch((error) => {
+      console.info(error)
+    })
+
+  return user
+}
+
 const saveAuthData = async (
-  token: string,
+  accessToken: string,
   expiresIn: number,
   issuedAt: number,
   refreshToken: string,
 ) => {
-  setItemAsync(authConsts.storeKeys.accessToken, token)
+  setItemAsync(authConsts.storeKeys.accessToken, accessToken)
   setItemAsync(authConsts.storeKeys.expiresIn, expiresIn.toString())
   setItemAsync(authConsts.storeKeys.issuedAt, issuedAt.toString())
   setItemAsync(authConsts.storeKeys.refreshToken, refreshToken)
+
+  const user = await getUserData(accessToken)
+
+  setItemAsync(authConsts.storeKeys.email, user.email)
+  setItemAsync(authConsts.storeKeys.firstName, user.firstName)
 }
 
 const getAuthData = async (): Promise<
-  [string | null, number, number, string | null]
+  [string | null, number, number, string | null, User]
 > => {
   const accessToken = await getItemAsync(authConsts.storeKeys.accessToken)
   const expiresIn = await getItemAsync(authConsts.storeKeys.expiresIn)
   const issuedAt = await getItemAsync(authConsts.storeKeys.issuedAt)
   const refreshToken = await getItemAsync(authConsts.storeKeys.refreshToken)
 
-  // await fetch('https://graph.microsoft.com/v1.0/me/', {
-  //     method: 'GET',
-  //     headers: {
-  //         'Authorization': `Bearer ${accessToken}`,
-  //     }
-  // })
-  //     .then(async (response) => response.json())
-  //     .then((response) => {
-  //         console.log(response)
-  //     })
-  //     .catch((error) => {
-  //         console.info(error)
-  //     });
+  let user: User = {
+    email: (await getItemAsync(authConsts.storeKeys.email)) ?? '',
+    firstName: (await getItemAsync(authConsts.storeKeys.firstName)) ?? '',
+  }
 
-  return [accessToken, Number(expiresIn), Number(issuedAt), refreshToken]
+  if (user.email == '' || user.firstName == '') {
+    user = await getUserData(accessToken ?? '')
+  }
+
+  return [accessToken, Number(expiresIn), Number(issuedAt), refreshToken, user]
 }
