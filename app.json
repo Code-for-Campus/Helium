@@ -31,7 +31,8 @@
         {
           "origin": "https://helium.owenwood.tech/"
         }
-      ]
+      ],
+      "expo-secure-store"
     ]
   }
 }
