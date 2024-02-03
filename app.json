@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "helium",
+    "name": "Helium",
     "slug": "helium",
     "scheme": "helium",
     "owner": "Code for Campus",
@@ -17,7 +17,7 @@
       "package": "tech.owenwood.helium",
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/images/foreground.png",
-        "backgroundColor": "#CA3535"
+        "backgroundImage": "./src/assets/images/background.png"
       }
     },
     "web": {
