@@ -34,3 +34,6 @@ yarn-error.*
 
 # editor
 .idea/
+
+# ios
+ios
