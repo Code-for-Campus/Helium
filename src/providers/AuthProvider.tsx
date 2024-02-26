@@ -19,15 +19,15 @@ import AuthContext, { User, defaultState } from '@/contexts/AuthContext'
 maybeCompleteAuthSession()
 
 const discoveryDocument: DiscoveryDocument = {
-  authorizationEndpoint: `https://login.microsoftonline.com/${process.env.EXPO_PUBLIC_TENANT_ID ?? ""}/oauth2/v2.0/authorize`,
-  tokenEndpoint: `https://login.microsoftonline.com/${process.env.EXPO_PUBLIC_TENANT_ID ?? ""}/oauth2/v2.0/token`,
+  authorizationEndpoint: `https://login.microsoftonline.com/${process.env.EXPO_PUBLIC_TENANT_ID ?? ''}/oauth2/v2.0/authorize`,
+  tokenEndpoint: `https://login.microsoftonline.com/${process.env.EXPO_PUBLIC_TENANT_ID ?? ''}/oauth2/v2.0/token`,
 }
 
 export default ({ children }: { children: ReactNode }) => {
   const [request, response, loginAsync] = useAuthRequest(
     {
-      clientId: process.env.EXPO_PUBLIC_CLIENT_ID ?? "",
-      scopes: authConsts.azure.scopes ?? "",
+      clientId: process.env.EXPO_PUBLIC_CLIENT_ID ?? '',
+      scopes: authConsts.azure.scopes ?? '',
       responseType: ResponseType.Code,
       redirectUri: makeRedirectUri({
         scheme: authConsts.azure.redirectScheme,
@@ -57,7 +57,7 @@ export default ({ children }: { children: ReactNode }) => {
         (async () => {
           const accessTokenRequest = new AccessTokenRequest({
             code: response.params.code as string,
-            clientId: process.env.EXPO_PUBLIC_CLIENT_ID ?? "",
+            clientId: process.env.EXPO_PUBLIC_CLIENT_ID ?? '',
             scopes: authConsts.azure.scopes,
             extraParams: {
               code_verifier: request.codeVerifier || '',
@@ -106,7 +106,7 @@ export default ({ children }: { children: ReactNode }) => {
             if (now > Number(issuedAt) + Number(expiresIn) - threshold) {
               const tokenResponse: TokenResponse = await refreshAsync(
                 {
-                  clientId: process.env.EXPO_PUBLIC_CLIENT_ID ?? "",
+                  clientId: process.env.EXPO_PUBLIC_CLIENT_ID ?? '',
                   refreshToken: refreshToken?.toString(),
                 },
                 discoveryDocument,
