@@ -3,12 +3,14 @@
     "name": "Helium",
     "slug": "helium",
     "scheme": "helium",
-    "owner": "Code for Campus",
+    "owner": "codeforcampus",
     "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./src/assets/images/icon.png",
     "userInterfaceStyle": "automatic",
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "bundleIdentifier": "tech.owenwood.helium",
       "supportsTablet": false
@@ -33,6 +35,14 @@
         }
       ],
       "expo-secure-store"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": "https://helium.owenwood.tech/"
+      },
+      "eas": {
+        "projectId": "d09f17b0-8890-4607-95ba-2501266264ca"
+      }
+    }
   }
 }
