@@ -1,7 +1,5 @@
 export default {
   azure: {
-    clientId: '***REMOVED***',
-    tenantId: '***REMOVED***',
     redirectScheme: 'helium',
     redirectPath: 'auth',
     refreshThreshold: 60,
