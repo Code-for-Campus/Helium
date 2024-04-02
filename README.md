@@ -1,6 +1,6 @@
 # Helium
 
-Welcome to Helium, an open-source GPA tracker designed specifically for Phillips Exeter students. This project aims to streamline the process of tracking and managing grades, making it easier for students to stay organized and focused on their academic performance.
+Welcome to Helium, an open-source GPA manager designed specifically for Phillips Exeter students. This project aims to streamline the process of tracking and managing grades, making it easier for students to stay organized and focused on their academic performance.
 
 ## Getting Started
 
