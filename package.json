@@ -19,7 +19,6 @@
   },
   "dependencies": {
     "@expo/metro-config": "^0.17.3",
-    "@expo/vector-icons": "^14.0.0",
     "@react-navigation/native": "^6.0.2",
     "expo": "~50.0.4",
     "expo-auth-session": "^5.4.0",
@@ -37,7 +36,8 @@
     "react-native": "0.73.2",
     "react-native-safe-area-context": "4.8.2",
     "react-native-screens": "~3.29.0",
-    "react-native-web": "~0.19.6"
+    "react-native-web": "~0.19.6",
+    "react-native-svg": "14.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
